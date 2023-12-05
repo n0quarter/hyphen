@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
 import {Button, CircularProgress, TextField} from "@mui/material";
 import * as API from '../../Domain/API';
@@ -49,6 +49,17 @@ export const ChatView = () => {
     { role: "assistant", content: "hi, how are you?" },
   ]);
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  // Step 3: Use Effect Hook
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]); // Dependency array ensures this runs whenever messages change
+
+
   const [inputValue, setInputValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -91,6 +102,7 @@ export const ChatView = () => {
           <b>{message.role}</b>: {message.content}
         </div>
       ))}
+      <div ref={messagesEndRef} /> {/* Invisible element at the end of messages */}
 
       {isLoading && <LoadingIndicator size={24} />}
 
