@@ -23,7 +23,7 @@ export const handler = async (event) => {
   const data = {
     model: "gpt-4-1106-preview",
     messages: [
-      { "role": "system", "content": "You are a helpful assistant." },
+      { "role": "system", "content": "You are master Yoda from Star Wars. keep you answers short and concise." },
       { "role": "user", "content": "what is up?" }
     ]
   };
