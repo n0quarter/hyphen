@@ -16,12 +16,13 @@ const ChatContainer = styled.div`
   background-color: #f1f1f1;
   padding: 20px;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   overflow-y: auto; // Allows vertical scrolling if content overflows
 `;
 
 const StyledForm = styled.form`
   display: flex;
+  width: 90%;
   align-items: center;
   gap: 8px;
   margin-top: 20px;
@@ -43,10 +44,31 @@ const LoadingIndicator = styled(CircularProgress)`
   padding: 10px;
 `;
 
+const UserMessage = styled.div`
+  max-width: 80%;
+  margin: 10px auto 10px 20px; // Left aligned
+  padding: 10px;
+  // Light blue background
+  background-color: #2196f3;
+  border-radius: 20px;
+  text-align: left;
+  color: white;
+`;
+
+const AssistantMessage = styled.div`
+  max-width: 80%;
+  margin: 10px 20px 10px auto; // Right aligned
+  padding: 10px;
+  background-color: #4caf50; // Green background
+  border-radius: 20px;
+  text-align: left;
+  color: white;
+`;
+
 export const ChatView = () => {
   const [messages, setMessages] = React.useState([
-    { role: "user", content: "Hello!" },
-    { role: "assistant", content: "hi, how are you?" },
+    // { role: "user", content: "Hello!" },
+    { role: "assistant", content: "Hi, I'm master Yoda. What is up?" },
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -54,39 +76,37 @@ export const ChatView = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  // Step 3: Use Effect Hook
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]); // Dependency array ensures this runs whenever messages change
-
 
   const [inputValue, setInputValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
   const onSendClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const form = event.currentTarget;
-    const input = form.elements.namedItem('message') as HTMLInputElement;
+    const input = event.currentTarget.elements.namedItem('message') as HTMLInputElement;
 
     const newMessage = {
       role: "user",
       content: input.value,
     };
 
-    // optimistic update
     const newMessages: ChatMessage[] = [...messages, newMessage];
     setMessages(newMessages);
 
     setIsLoading(true);
-    API.sendChatMessages(newMessages).then(gptMessage => {
-      console.log(gptMessage);
-      setMessages(prev => [...prev, gptMessage]);
-      setIsLoading(false);
-    }).catch(err => {
-      console.log(err);
-      setIsLoading(false);
-    });
+    API.sendChatMessages(newMessages)
+      .then(gptMessage => {
+        console.log(gptMessage);
+        setMessages(prev => [...prev, gptMessage]);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
     setInputValue('');
   };
 
@@ -97,11 +117,19 @@ export const ChatView = () => {
   return (
     <ChatContainer>
       <h1>Chat</h1>
-      {messages.map((message, index) => (
-        <div key={index}>
-          <b>{message.role}</b>: {message.content}
-        </div>
-      ))}
+      {/*{messages.map((message, index) => (*/}
+      {/*  <div key={index}>*/}
+      {/*    <b>{message.role}</b>: {message.content}*/}
+      {/*  </div>*/}
+      {/*))}*/}
+      {messages.map((message, index) => {
+        const MessageComponent = message.role === "user" ? UserMessage : AssistantMessage;
+        return (
+          <MessageComponent key={index}>
+            <b>{message.role}</b>: {message.content}
+          </MessageComponent>
+        );
+      })}
       <div ref={messagesEndRef} /> {/* Invisible element at the end of messages */}
 
       {isLoading && <LoadingIndicator size={24} />}
@@ -116,9 +144,9 @@ export const ChatView = () => {
           fullWidth
         />
         <StyledButton type="submit"
-                variant="contained"
-                color="primary"
-                disabled={!inputValue || isLoading}
+                      variant="contained"
+                      color="primary"
+                      disabled={!inputValue || isLoading}
         >
           Send
         </StyledButton>
