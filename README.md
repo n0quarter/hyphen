@@ -1,6 +1,7 @@
 # Hyphen Code Challenge by Viktor
 
 Here is a link to the deployed app: https://hyphen-rouge.vercel.app/
+
 BE runs on AWS Lambda, FE runs on Vercel.
 
 To run it locally, read further.
@@ -35,11 +36,10 @@ The backend interacts with the OpenAI API and requires a `.env` file with an `OP
 - **Deployment**:
     - Use `npm run deploy` to zip and deploy to AWS Lambda.
     - NOTE: you need aws cli configured for this to work
-### Notes
-
-Ensure Node.js is installed and AWS CLI is configured for deployment.
 
 ## Frontend
+
+- It's a simple React app created with Create React App. 
 
 ### Prerequisites
 
@@ -52,8 +52,7 @@ Ensure Node.js is installed and AWS CLI is configured for deployment.
 ### Usage
 
 - **Local Development**:
-    - Run `npm start` to launch the React application locally. It will open in your default browser.
-    - The app is set up using Create React App and should automatically reload if you make edits.
+    - `npm start`
 - **Testing**:
     - Execute `npm test` to run tests with Jest.
     - NOTE: Jest tests are TBD
