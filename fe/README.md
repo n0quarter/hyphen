@@ -3,7 +3,6 @@
 Here is a link to the deployed app: https://hyphen-rouge.vercel.app/
 BE runs on AWS Lambda, FE runs on Vercel.
 
----
 To run it locally, read further.
 
 This repository contains two main directories: `be` and `fe`.
