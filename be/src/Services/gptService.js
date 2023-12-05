@@ -13,7 +13,6 @@ const askGPT = async (chatMessages) => {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${openAiApiKey}`
   };
-  console.log('========= [askGPT]: chatMessages = ', chatMessages)
   const data = {
     model: "gpt-4-1106-preview",
     messages: [

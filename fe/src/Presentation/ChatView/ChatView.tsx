@@ -11,13 +11,12 @@ const ChatContainer = styled.div`
   align-items: center;
   max-width: 600px; // Max width for the chat container
   width: 100%; // Full width on smaller devices
-  //min-height: 100%;
   min-height: 500px;
   background-color: #f1f1f1;
   padding: 20px;
   color: black;
   font-size: 20px;
-  overflow-y: auto; // Allows vertical scrolling if content overflows
+  overflow-y: auto; 
 `;
 
 const StyledForm = styled.form`
@@ -30,12 +29,12 @@ const StyledForm = styled.form`
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
-    height: 50px; // Adjust this value as needed
+    height: 50px;
   }
 `;
 
 const StyledButton = styled(Button)`
-  height: 50px; // Ensure this matches the TextField height
+  height: 50px; 
 `;
 
 const LoadingIndicator = styled(CircularProgress)`
@@ -48,7 +47,6 @@ const UserMessage = styled.div`
   max-width: 80%;
   margin: 10px auto 10px 20px; // Left aligned
   padding: 10px;
-  // Light blue background
   background-color: #2196f3;
   border-radius: 20px;
   text-align: left;
@@ -59,7 +57,7 @@ const AssistantMessage = styled.div`
   max-width: 80%;
   margin: 10px 20px 10px auto; // Right aligned
   padding: 10px;
-  background-color: #4caf50; // Green background
+  background-color: #4caf50; 
   border-radius: 20px;
   text-align: left;
   color: white;
@@ -72,8 +70,8 @@ const ErrorMsg = styled.div`
 `;
 
 export const ChatView = () => {
+
   const [messages, setMessages] = React.useState([
-    // { role: "user", content: "Hello!" },
     { role: "assistant", content: "Hi, I'm master Yoda. What is up?" },
   ]);
 
@@ -106,7 +104,6 @@ export const ChatView = () => {
     setIsLoading(true);
     API.sendChatMessages(newMessages)
       .then(gptMessage => {
-        console.log('### gptMessage = ', gptMessage)
         setMessages(prev => [...prev, gptMessage]);
         setIsLoading(false);
         setError(null);
@@ -126,11 +123,6 @@ export const ChatView = () => {
   return (
     <ChatContainer>
       <h1>Chat</h1>
-      {/*{messages.map((message, index) => (*/}
-      {/*  <div key={index}>*/}
-      {/*    <b>{message.role}</b>: {message.content}*/}
-      {/*  </div>*/}
-      {/*))}*/}
       {messages.map((message, index) => {
         const MessageComponent = message.role === "user" ? UserMessage : AssistantMessage;
         return (
@@ -139,7 +131,7 @@ export const ChatView = () => {
           </MessageComponent>
         );
       })}
-      <div ref={messagesEndRef} /> {/* Invisible element at the end of messages */}
+      <div ref={messagesEndRef} />
 
       {isLoading && <LoadingIndicator size={24} />}
       {error && <ErrorMsg>{error}</ErrorMsg>}
