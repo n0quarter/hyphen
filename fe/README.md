@@ -1,43 +1,68 @@
 # Hyphen Code Challenge by Viktor
 
-## Available Scripts
-In the project directory, you can run:
+Here is a link to the deployed app: https://hyphen-rouge.vercel.app/
+BE runs on AWS Lambda, FE runs on Vercel.
 
-### `npm start`
+---
+To run it locally, read further.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This repository contains two main directories: `be` and `fe`.
+## Backend
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The backend interacts with the OpenAI API and requires a `.env` file with an `OPENAI_API_KEY`.
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js v18
 
-### `npm run build`
+### Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Environment**: Create a `.env` file in the backend directory with your OpenAI API key:
+   OPENAI_API_KEY=<your_api_key>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Installation**: Run `npm install` in the backend directory to install dependencies.
 
-### `npm run eject`
+### Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Local Development**:
+    - Use `npm start` to run the server locally with nodemon.
+    - NOTE: The code is built for AWS Lambda. For local development, it runs `localServer.js`, which implements an Express.js wrapper to imitate Lambda behavior.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Testing**:
+    - Execute `npm test` to run tests with Jest.
+    - NOTE: Jest tests are TBD 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Deployment**:
+    - Use `npm run deploy` to zip and deploy to AWS Lambda.
+    - NOTE: you need aws cli configured for this to work
+### Notes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Ensure Node.js is installed and AWS CLI is configured for deployment.
 
-## Learn More
+## Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Prerequisites
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Node.js v18
+
+### Setup
+
+1. **Installation**: In the `fe` directory, run `npm install` to install the necessary React dependencies.
+
+### Usage
+
+- **Local Development**:
+  - Run `npm start` to launch the React application locally. It will open in your default browser.
+  - The app is set up using Create React App and should automatically reload if you make edits.
+- **Testing**:
+  - Execute `npm test` to run tests with Jest.
+  - NOTE: Jest tests are TBD
+
+### Deployment
+
+- The frontend is hosted on Vercel. To deploy, push changes to your repository linked with Vercel, and it will handle the deployment automatically.
+
+### Notes
+
+This is a standard React application created with Create React App. No special environment variables or configurations are needed for local development.
