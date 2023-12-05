@@ -6,6 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/localServer.js",
+    "zip": "rm -f ../be.zip* && zip -r ../be.zip . -x '*.git*' -x '.idea/*' -x '.env'",
+    "deploy": "npm run zip && aws lambda update-function-code --function-name hyphen --zip-file fileb://../be.zip",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

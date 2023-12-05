@@ -12,3 +12,4 @@ fe/build
 .idea
 .vscode
 
+*.zip
