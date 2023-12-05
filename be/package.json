@@ -8,7 +8,7 @@
     "start": "nodemon src/localServer.js",
     "zip": "rm -f ../be.zip* && zip -r ../be.zip . -x '*.git*' -x '.idea/*' -x '.env'",
     "deploy": "npm run zip && aws lambda update-function-code --function-name hyphen --zip-file fileb://../be.zip",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Viktor Shcherban",
@@ -19,5 +19,8 @@
     "express": "^4.18.2",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

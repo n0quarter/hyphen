@@ -65,6 +65,12 @@ const AssistantMessage = styled.div`
   color: white;
 `;
 
+const ErrorMsg = styled.div`
+  color: red;
+  margin-top: 10px;
+  padding: 10px;
+`;
+
 export const ChatView = () => {
   const [messages, setMessages] = React.useState([
     // { role: "user", content: "Hello!" },
@@ -83,6 +89,7 @@ export const ChatView = () => {
 
   const [inputValue, setInputValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const onSendClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -99,12 +106,14 @@ export const ChatView = () => {
     setIsLoading(true);
     API.sendChatMessages(newMessages)
       .then(gptMessage => {
-        console.log(gptMessage);
+        console.log('### gptMessage = ', gptMessage)
         setMessages(prev => [...prev, gptMessage]);
         setIsLoading(false);
+        setError(null);
+
       })
       .catch(err => {
-        console.log(err);
+        setError(err.message);
         setIsLoading(false);
       });
     setInputValue('');
@@ -133,7 +142,7 @@ export const ChatView = () => {
       <div ref={messagesEndRef} /> {/* Invisible element at the end of messages */}
 
       {isLoading && <LoadingIndicator size={24} />}
-
+      {error && <ErrorMsg>{error}</ErrorMsg>}
       <StyledForm onSubmit={onSendClick}>
         <StyledTextField
           name="message"
