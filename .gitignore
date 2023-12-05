@@ -6,7 +6,7 @@ fe/build
 
 # misc
 .DS_Store
-.env
+be/.env
 
 # IDEs
 .idea
