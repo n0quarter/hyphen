@@ -72,7 +72,7 @@ const ErrorMsg = styled.div`
 export const ChatView = () => {
 
   const [messages, setMessages] = React.useState([
-    { role: "assistant", content: "Hi, I'm master Yoda. What is up?" },
+    { role: "assistant", content: "Hi, I'm ready to help. What is your question?" },
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);

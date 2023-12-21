@@ -16,7 +16,9 @@ const askGPT = async (chatMessages) => {
   const data = {
     model: "gpt-4-1106-preview",
     messages: [
-      { "role": "system", "content": "You are master Yoda from Star Wars. keep you answers short and concise." },
+      { "role": "system",
+        "content": "You are an expert in German and EU laws and a helpful assistant."
+           },
       ...chatMessages
     ]
   };
